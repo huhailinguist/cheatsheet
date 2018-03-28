@@ -1,7 +1,4 @@
-# Python cheatsheet
-##### Hai Hu
-
-## READ/WRITE TEXT FILES
+# READ/WRITE TEXT FILES
 * read txt method 1
 ```python
 with codecs.open('filename', 'r', encoding = 'utf-8') as f:
@@ -36,6 +33,17 @@ while i < 41:
     do stuff
     if i = 21:
         then i = 30 # now we skip (21,30)
+```
+
+# TypeError: a bytes-like object is required, not 'str'
+Two ways to solve it:
+either use .decode() to the byte object, thus converting it to a string,
+or use b'mystring' to make the string a byte object.
+
+# print python path
+```python
+import sys 
+print '\n'.join(sys.path)
 ```
 
 # reverse a list:
@@ -131,6 +139,14 @@ df.iloc[df.index.values.tolist().index(YourTuple)]
 * one col divided by another: astype('folat')
 ```python
 probDict['prob'] = probDict['C(Wn-1+Wn)']/probDict['C(Wn-1)'].astype('float')
+```
+
+## change data types of a column
+[link](https://stackoverflow.com/questions/15891038/change-data-type-of-columns-in-pandas)
+```python
+df.columnName.astype('int32) # or float
+# OR to float
+pd.to_numeric(columnName)
 ```
 
 ## pandas documentation:
@@ -397,6 +413,10 @@ lst = [x for x in lst if x != 'a']
 ```python
 sorted(d.items(), key=lambda x: x[1])
 ```
+## merge dictionaries
+```python
+z = {**x, **y} # x, y are the dicts you want to merge
+```
 
 ## remove a key from a python dictionary
 my_dict.pop('key', None)
@@ -482,3 +502,45 @@ dct.setdefault('foo', []).append('bar')
 outstr = re.sub(u'[ \t\u3000]+', '', outstr) # \u3000 is the Chinese space
 ```
 
+## remove sklearn warning
+```python
+# suppress sklearn warning
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
+```
+
+## get time, date
+```python
+import time 
+print (time.strftime("%H:%M:%S")) # 23:46:08
+print (time.strftime("%d/%m/%Y")) # 04/10/2013
+```
+
+## log to a file and console at the same time
+```python
+import logging
+import time
+
+numEpoch=20
+
+log = logging.getLogger()
+log.setLevel(logging.INFO)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+fh = logging.FileHandler(time.strftime("%H:%M:%S")+'-epoch-'+str(numEpoch)+'.log')
+fh.setFormatter(formatter)
+
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.INFO)
+ch.setFormatter(formatter)
+
+log.addHandler(ch)
+log.addHandler(fh)
+```
+
+# install virtual env w/o ROOT:
+Perhaps this was valid for older versions of virtualenv. For now, if you want to run virtualenv on a machine you're not root: download and untar one if these: https://github.com/pypa/virtualenv/releases, then then just run python virtualenv.py /path/to/new/virtualenv/to/create
+[link](https://stackoverflow.com/questions/9348869/how-to-install-virtualenv-without-using-sudo)
