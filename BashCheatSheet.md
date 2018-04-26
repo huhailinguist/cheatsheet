@@ -329,8 +329,6 @@ sudo mount -t ntfs /dev/sda2 /media/hdd/
 ```unix
 sudo service ssh restart
 ```
-# IP 20171028
-108.71.214.140
 
 # vim
 ## substitution in visual block!
