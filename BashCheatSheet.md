@@ -17,6 +17,11 @@ sudo umoun /media/hai/G # to unmount a drive
 df -h
 ```
 
+# column stack, append column
+```bash
+paste file1 file2
+```
+
 # logical operators
 ```bash
 && # and
@@ -25,6 +30,10 @@ if [ $counter -lt $x ] || [ $counter -gt $((x+100)) ]
   then
    continue
 fi
+```
+# print all but the last line
+```bash
+head -n $(( $(wc -l file.txt | awk '{print $1}') - 5 )) file.txt
 ```
 
 # print certain line, or lines
@@ -37,12 +46,19 @@ sed '52q;d' # method 3,  efficient on large files
 sed -n '20,40p;41q' file_name
 ```
 
+# delete empty lines
+```bash
+sed '/^$/d' /tmp/data.txt
+```
+
 # string (not) contain substring
 ```bash
 if [[ ! "abc" =~ "d" ]]; // if "abc" does NOT contain "d"
 then
     do stuff
 fi
+# or when listing
+ls !(*.jar)
 ```
 
 # examine number of arguments from command line
@@ -98,6 +114,7 @@ grep -n # give line number, color the matches!! but with more/less no color
 grep -c # count number of lines
 grep -o # only the matches
 grep -v # complement
+grep -H # always show file name even it's one single file
 egrep 'the .*? of' | less # egrep has greedy search
 ```
 
@@ -106,27 +123,31 @@ egrep 'the .*? of' | less # egrep has greedy search
 ```bash
 grep -Po '^\s+1\s\K\w+' test.txt
 # \K means it will match what goes after ^\s+1\s, i.e. only print the \w+
-#
+
 # print lines whose 2nd column is empty. $'\t' says it's tab delimited
 awk -F $'\t' '$2 == ""' file
-#
+
 # print lines whose 2nd column is not empty.
 awk '$4' file
-#
-#Print only the lines that do not match a regular expression "/regex/" (emulates "grep -v").
+
+# Print only the lines that do not match a regular expression "/regex/" (emulates "grep -v").
 awk '!/regex/' file
-#
+
 # print lines that is in file1 but not in file2 (both files have to be sorted)
 diff --new-line-format="" --unchanged-line-format="" file1 file2
 comm -23 file1 file2 
-#
+
 # Under unix, I want to copy all files with a certain extension (all mp3 files) from all subdirectories to another directory.
 find dir_name '*.mp3' -exec cp -vuni '{}' "../dest_dir" ";"
-#
+
 # print the NUMth line of a file
 sed "${NUM}q;d" file
 tail -n+NUM file | head -n1
-#
+
+# print lines 20 to 40
+sed -n '20,40p;41q' file_name
+awk 'FNR>=20 && FNR<=40' file_name
+
 # show the last field using cut: first reverse the file, then cut the first column, and then reverse the first column.
 cut filename | rev | cut -f 1 | rev
 
@@ -246,6 +267,12 @@ done
 ```bash
 a="thisisastring"
 b=${a:0:4} # this
+```
+
+# grep only extract matched pattern. [link](https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
+```bash
+# To match the word between foo and bar
+grep -oP 'foo\K\w+(?=bar)' test.txt
 ```
 
 # if statement, incrementing variable, break
