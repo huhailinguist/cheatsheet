@@ -1,4 +1,4 @@
-# READ/WRITE TEXT FILES
+## READ/WRITE TEXT FILES
 * read txt method 1
 ```python
 with codecs.open('filename', 'r', encoding = 'utf-8') as f:
@@ -35,25 +35,30 @@ while i < 41:
         then i = 30 # now we skip (21,30)
 ```
 
-# TypeError: a bytes-like object is required, not 'str'
+## TypeError: a bytes-like object is required, not 'str'
 Two ways to solve it:
 either use .decode() to the byte object, thus converting it to a string,
 or use b'mystring' to make the string a byte object.
 
-# print python path
+## print python path
 ```python
 import sys 
 print '\n'.join(sys.path)
 ```
 
-# reverse a list:
+## reverse a list:
 ```python
 lst = ['john','mary','george','tom']
 lst.reverse() # one way to reverse, destructively, like .sort()
 lst[::-1] # non-destructively
 ```
 
-# PANDAS DATAFRAME:
+## print exception, error message
+```python
+except Exception as e: print(e)
+```
+
+## PANDAS DATAFRAME:
 
 * df creation 1
 ```python
@@ -541,6 +546,13 @@ log.addHandler(ch)
 log.addHandler(fh)
 ```
 
-# install virtual env w/o ROOT:
+## install virtual env w/o ROOT:
 Perhaps this was valid for older versions of virtualenv. For now, if you want to run virtualenv on a machine you're not root: download and untar one if these: https://github.com/pypa/virtualenv/releases, then then just run python virtualenv.py /path/to/new/virtualenv/to/create
 [link](https://stackoverflow.com/questions/9348869/how-to-install-virtualenv-without-using-sudo)
+
+## create a virtual machine:
+```python
+virtualenv myenv
+source myenv/bin/activate
+deactivate
+```
