@@ -68,6 +68,13 @@ if [ "$#" -ne 1 ]; then
    exit 1
 fi
 # refer to first argument: $1
+
+# optional second arg from cmd
+if [ "$#" -eq 2 ]; then
+   outputDir=$2
+else
+   outputDir="."
+fi
 ```
 
 # touch all files recursively
@@ -261,6 +268,10 @@ do
     echo ${file##*/} # removes the leading pathname up to the last /
     echo $(basename $file)
 done
+
+# get basename of file
+basename ../foo/fizzbuzz_aa.bar _aa.bar 
+# output: fizzbuzz
 ```
 
 # get substring
@@ -325,9 +336,15 @@ lsblk
 # mount a device on linux
 sudo mount -t ntfs /dev/sda2 /media/hdd/
 ```
+
 ## restart ssh service
 ```unix
 sudo service ssh restart
+```
+
+## audio format conversion
+```bash
+ffmpeg -i input_file_name.ape output_file_name.flac
 ```
 
 # vim
@@ -337,5 +354,7 @@ sudo service ssh restart
 :'<,'>s/text1/text2/g
 ## redo
 ctrl + R
+## change encoding
+:e ++enc=gb2312
 
 
